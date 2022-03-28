@@ -1,3 +1,7 @@
+difference = 0;
+rightwristX = 0;
+leftwristX = 0;
+
 function setup() {
     video = createCapture(VIDEO);
     video.size(550, 500);
@@ -9,6 +13,10 @@ function setup() {
 
 function draw() {
   background('#95A1AB');
+  document.getElementById("text-size").innerHTML = "Font Size of text will be = " + difference +"px";
+  fill('#F90093');
+  textSize(difference);
+  text('Ishit', 50, 400);
 }
 
 function modelLoaded() {
@@ -17,6 +25,9 @@ function modelLoaded() {
 
 function gotPoses(results) {
   if(results.length > 0) {
-    console.log(result);
+    console.log(results);
+    leftwristX=results[0].pose.leftWrist.x; rightwristX=results[0].pose.rightWrist.x;
+     difference=floor(leftwristX-rightwristX);
+     console.log("leftwristX = " + leftwristX + "rightwristX = " + rightwristX + " difference = " + difference);
   }
 }
